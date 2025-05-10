@@ -1,12 +1,10 @@
 streamlit
-yt-dlp
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 tqdm
-transformers
 groq
 requests
 beautifulsoup4
 lyricsgenius
-streamlit-secrets
+
