@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 # Configuration
 class Config:
-    GENIUS_TOKEN = st.secrets["GENIUS_ACCESS_TOKEN"]
+    GENIUS_TOKEN = "uia6-peLcflNIMV8C-baIQTWXPt8eQWm4XVH-yK1Fv8bfcY7hlMcgUYdc4tCFkRZ"
     CACHE_DIR = Path("cache")
     TIMEOUT = 30
     MAX_RETRIES = 3
