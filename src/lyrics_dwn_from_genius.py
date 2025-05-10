@@ -33,12 +33,7 @@ def setup_genius() -> lyricsgenius.Genius:
     genius = lyricsgenius.Genius(
         Config.GENIUS_TOKEN,
         timeout=Config.TIMEOUT,
-        retries=Config.MAX_RETRIES,
-        headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Accept': 'application/json',
-            'Authorization': f'Bearer {Config.GENIUS_TOKEN}'
-        }
+        retries=Config.MAX_RETRIES
     )
     genius.remove_section_headers = False
     logger.info("Genius API connection successful!")
@@ -132,11 +127,6 @@ def get_song_lyrics(song_title: str, artist_name: str) -> Optional[Dict[str, Any
     for attempt in range(Config.MAX_RETRIES):
         try:
             logger.info(f"Attempt {attempt + 1} of {Config.MAX_RETRIES}")
-            
-            # Add delay between attempts
-            if attempt > 0:
-                time.sleep(Config.RETRY_DELAY * (attempt + 1))  # Exponential backoff
-            
             song = genius.search_song(song_title, artist_name)
             
             if not song:
