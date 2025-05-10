@@ -35,15 +35,25 @@ def read_lyrics_and_title():
     else:
         return None, None
 
-def create_prompt(original_lyrics: str, theme: str = "Same as Original") -> str:
+def create_prompt(original_lyrics: str, theme: str = "Same as Original", generation_mode: str = "Replace Original Lyrics") -> str:
     """Create a prompt for the LLaMA model."""
     theme_instruction = ""
     if theme != "Same as Original":
         theme_instruction = f"\nAdditionally, modify the emotional tone to be {theme.lower()} while maintaining the core message."
     
-    return f"""You are a creative songwriter. I will provide you with original lyrics. 
+    generation_instruction = ""
+    if generation_mode == "Extend Original Lyrics":
+        generation_instruction = """
+Your task is to extend the original lyrics by adding new verses and sections while maintaining the same style and theme.
+ONLY provide the new sections that you create - do not include the original lyrics in your response.
+Make sure the new sections maintain the same emotional energy and style as the original."""
+    else:
+        generation_instruction = """
 Your task is to create new lyrics that maintain the same emotional energy, style, and theme, but use different words and expressions.
-The new lyrics should be in the same language as the original.{theme_instruction}
+The new lyrics should be in the same language as the original."""
+    
+    return f"""You are a creative songwriter. I will provide you with original lyrics. 
+{generation_instruction}{theme_instruction}
 
 First, analyze the lyrics and determine their genre based on the style, themes, and language used.
 Then, create new lyrics that match that genre while:
