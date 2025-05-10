@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Dict, Optional, List, Any
 from functools import lru_cache
-import requests
+import requests, os
 import streamlit as st
 from bs4 import BeautifulSoup
 
