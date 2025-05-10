@@ -55,6 +55,15 @@ with col1:
 with col2:
     artist_name = st.text_input("Artist Name", value=st.session_state.artist_name, placeholder="Enter the artist name...")
 
+# Add generation mode selection
+st.subheader("🎯 Generation Mode")
+generation_mode = st.radio(
+    "Choose how you want to generate the lyrics:",
+    ["Replace Original Lyrics", "Extend Original Lyrics"],
+    horizontal=True,
+    help="Replace: Creates new lyrics in the same style but with different words\nExtend: Adds new verses/sections while maintaining the original lyrics"
+)
+
 # Add theme selection after input fields
 st.subheader("🎨 Choose Generation Theme")
 theme = st.radio(
@@ -95,7 +104,7 @@ if st.button("Generate Lyrics", type="primary"):
                     st.stop()
                 
                 # Create prompt and generate new lyrics
-                prompt = create_prompt(original_lyrics, theme)
+                prompt = create_prompt(original_lyrics, theme, generation_mode)
                 genre, generated_lyrics = generate_new_lyrics(client, prompt, seed=seed)
                 
                 if generated_lyrics:
